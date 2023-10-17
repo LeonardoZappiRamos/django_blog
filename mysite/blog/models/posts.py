@@ -10,7 +10,6 @@ class Post(models.Model):
     """Relational Model for Posts
 
     Args:
-        id(int): ID of the post;
         title(char): Title of the post;
         slug(Slug): Field for text e special;
         author(User): The user that owns the post;
@@ -20,13 +19,12 @@ class Post(models.Model):
         content(Text): Content of the post;
     """
     
-    id = models.AutoField(primary_key=True, unique=True)
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, default=f"post/{title}", unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_posts")
     updated_on = models.DateTimeField(auto_now=True)
     created_on = models.DateTimeField(auto_now_add=True)
-    status = models.IntegerField(max_length=1, choices=STATUS, default=0)
+    status = models.IntegerField(choices=STATUS, default=0)
     content = models.TextField()
     
     class Meta:
