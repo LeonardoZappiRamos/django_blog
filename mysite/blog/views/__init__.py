@@ -1,0 +1,1 @@
+from .view_post import PostView 
