@@ -1,11 +1,10 @@
 from django.views import generic
-from django.http import HttpResponse
+from blog.models import Post
 
-import datetime
+class PostView(generic.ListView):
+    queryset = Post.objects.filter(status=1).order_by('-created_on')
+    template_name  = 'index.html'
 
-
-class PostView(generic.View):
-    def get(self, request, *args, **kwargs):
-        now = datetime.datetime.now()
-        html = "<html><body>Hello !! It %s now.</body></html>" % now
-        return HttpResponse(html)
+class PostDatailView(generic.DetailView):
+    model = Post
+    template_name = 'post_detail.html'
